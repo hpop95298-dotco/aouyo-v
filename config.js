@@ -1,36 +1,31 @@
-// إعدادات كويز ديناميكا المركبات - AutoVroom Racing Cars Community
+// إعدادات نظام الاختبار واستقبال الإجابات
+// AutoVroom — Innovation University | Computer Science Team
 export const config = {
-  // بيانات الفريق والاختبار
-  community: "AutoVroom Racing Cars Community",
-  university: "Innovation University",
-  manager: "Eng. Anas Essam | Operation Manager",
-  subteam: "Vehicle Dynamics Subteam",
-  quizTitle: "Vehicle Dynamics Applicant Quiz",
-  totalQuestions: 12,
-  totalMarks: 12,
-  defaultTimeMinutes: 25, // مدة الاختبار المقترحة
+  // اسم الفريق والهوية
+  teamName: "AutoVroom — Innovation University",
+  subTeam: "Computer Science Team",
+  quizTitle: "اختبار تقييم المستوى (Beginner Level) — 20 سؤال",
+  totalTimeMinutes: 20, // مدة الاختبار بالدقائق
 
-  // إعدادات إرسال الإجابات عبر البريد الإلكتروني:
+  // طريقة إرسال الإجابات إلى الإيميل:
   emailService: {
-    // 1) الطريقة الفورية السهلة (بدون سيرفر): Web3Forms
-    web3formsAccessKey: "0c494a24-4a78-40b5-b227-5281a6331bb7", // مفتاحك الخاص المفعل
+    // الطريقة الأولى: Web3Forms (أسهل طريقة بدون كتابة سطر كود خلفي ومجانية تماماً)
+    // احصل على مفتاحك المجاني في ثوانٍ من https://web3forms.com وضع المفتاح هنا
+    web3formsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY",
 
-    // البريد الإلكتروني الذي ستصلك عليه الإجابات
-    recipientEmail: "mn8665967@gmail.com", 
+    // الإيميل اللي حابب تستقبل عليه الإجابات
+    recipientEmail: "autovroom.cs@example.com", 
 
-    // 2) بديل آخر: Formspree (اختياري)
-    formspreeEndpoint: "", // مثال: https://formspree.io/f/mqkvywzy
-
-    // إرسال نسخة من النتيجة لطالب الاختبار إذا رغب
-    sendCopyToStudent: true
+    // بدائل أخرى مثل Formspree أو Webhook:
+    formspreeEndpoint: "", 
+    webhookEndpoint: "https://hema1115478.app.n8n.cloud/webhook/autovroom-quiz-results"
   },
 
-  // ضوابط الاختبار
+  // إعدادات إضافية
   settings: {
-    showScoreImmediately: true, // إظهار الدرجة والنسبة للطالب فور التسليم
-    allowReviewAfterSubmit: true, // السماح للطالب بمراجعة الحل النموذجي مع الشرح الهندسي
-    enforceTimer: true, // تفعيل عداد الوقت التنازلي
-    shuffleQuestions: false, // ترتيب الأسئلة كما في الورقة الرسمية (1 إلى 12)
-    bilingualMode: true // إتاحة قراءة الأسئلة بالإنجليزية مع ترجمة وشرح عربي
+    showScoreImmediately: true, // إظهار الدرجة للطالب فور الانتهاء
+    allowReviewAfterSubmit: true, // السماح بمراجعة الإجابات والشرح العلمي
+    enforceTimer: true, // إنهاء الاختبار تلقائياً عند انتهاء الوقت
+    shuffleQuestions: false
   }
 };

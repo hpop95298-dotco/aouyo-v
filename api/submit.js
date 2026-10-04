@@ -1,8 +1,9 @@
 // Vercel Serverless Function - api/submit.js
-// يستقبل نتيجة اختبار Vehicle Dynamics ويرسل تقريراً مفصلاً إلى إيميل المهندس المشرف
+// AutoVroom — Innovation University | Computer Science Team
+// يستقبل نتيجة الاختبار ويرسل إيميل مفصل للمنظم
 
 export default async function handler(req, res) {
-  // تفعيل CORS للسماح بالاستدعاء من Vercel أو أي دومين
+  // CORS Headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -18,143 +19,93 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { student, score, total, percentage, timeSpent, answers, web3Key, targetEmail } = req.body;
+    const { student, score, total, percentage, timeSpent, answers, web3Key } = req.body;
 
-    if (!student || !student.name) {
+    if (!student || !student.name || !student.email) {
       return res.status(400).json({ success: false, message: 'بيانات الطالب غير مكتملة' });
     }
 
     const dateFormatted = new Date().toLocaleString('ar-EG', { timeZone: 'Africa/Cairo' });
-    const toEmail = process.env.TO_EMAIL || targetEmail || 'mn8665967@gmail.com';
-
-    // توليد تقرير جدول الإجابات
-    let answersHtml = answers.map((ans, idx) => {
+    
+    const answersHtml = answers.map((ans, idx) => {
       const isCorrect = ans.userChoice === ans.correctChoice;
-      const statusColor = isCorrect ? '#10B981' : '#EF4444';
-      const statusBadge = isCorrect 
-        ? '<span style="background-color: #064e3b; color: #34d399; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px;">✔️ صحيحة</span>' 
-        : '<span style="background-color: #450a0a; color: #f87171; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px;">❌ خاطئة</span>';
+      const statusColor = isCorrect ? '#10B981' : '#F43F5E';
+      const statusText = isCorrect ? '✔️ إجابة صحيحة' : '❌ إجابة خاطئة';
 
       return `
-        <tr style="border-bottom: 1px solid #334155;">
-          <td style="padding: 10px; color: #94a3b8; font-weight: bold; text-align: center;">${ans.number || (idx + 1)}</td>
-          <td style="padding: 10px; color: #f1f5f9;">
-            <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${ans.question}</div>
-            <div style="font-size: 13px; color: #cbd5e1;">
-              <strong>إجابة الطالب:</strong> 
-              <span style="color: ${statusColor}; font-weight: bold;">(${ans.userChoiceLetter || '—'}) ${ans.userAnswerText || 'لم يُجب'}</span>
-            </div>
-            ${!isCorrect ? `
-              <div style="font-size: 12px; color: #34d399; margin-top: 3px;">
-                <strong>الإجابة الصحيحة:</strong> (${ans.correctChoiceLetter}) ${ans.correctAnswerText}
-              </div>
-            ` : ''}
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-style: italic;">
-              💡 <strong>السبب الهندسي:</strong> ${ans.explanation}
-            </div>
-          </td>
-          <td style="padding: 10px; text-align: center; vertical-align: top;">
-            ${statusBadge}
-          </td>
-        </tr>
+        <div style="border-bottom: 1px solid #2d1b4e; padding: 14px 0; font-family: 'Cairo', Tahoma, sans-serif; direction: rtl; text-align: right;">
+          <p style="margin: 0 0 6px; font-weight: bold; color: #ffffff; font-size: 15px;">
+            س${idx + 1}: ${ans.question}
+          </p>
+          <div style="font-size: 14px; margin-bottom: 4px;">
+            <span style="color: ${statusColor}; font-weight: bold;">[${statusText}]</span>
+            <span style="color: #cbd5e1;">إجابة المتقدم: <strong style="color: #ffffff;">${ans.userAnswerText || 'لم يُجب'}</strong></span>
+          </div>
+          ${!isCorrect ? `<div style="font-size: 13px; color: #a855f7;">الإجابة النموذجية: <strong style="color: #c084fc;">${ans.correctAnswerText}</strong></div>` : ''}
+          <div style="font-size: 12px; color: #94a3b8; margin-top: 4px; background: #160b2e; padding: 6px 10px; border-radius: 4px;">
+            💡 الشرح: ${ans.explanation}
+          </div>
+        </div>
       `;
     }).join('');
 
-    // القالب الكامل للبريد الإلكتروني بتصميم نيورون داكن يناسب AutoVroom
     const fullHtmlEmail = `
-      <div style="background-color: #0b0f19; padding: 24px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: rtl; text-align: right; color: #f8fafc;">
-        <div style="max-width: 680px; margin: 0 auto; background-color: #111827; border-radius: 14px; overflow: hidden; border: 1px solid #7c3aed; box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);">
+      <div style="background-color: #06030c; padding: 30px 15px; font-family: 'Cairo', Tahoma, sans-serif; direction: rtl; text-align: right; color: #f5f3ff;">
+        <div style="max-width: 620px; margin: 0 auto; background-color: #12092a; border-radius: 16px; overflow: hidden; border: 1.5px solid #a855f7; box-shadow: 0 0 25px rgba(168, 85, 247, 0.35);">
           
-          <!-- الهيدر -->
-          <div style="background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #7c3aed 100%); padding: 30px 20px; text-align: center; border-bottom: 2px solid #a855f7;">
-            <h3 style="margin: 0 0 6px; color: #c084fc; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;">Innovation University</h3>
-            <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 800; letter-spacing: 0.5px;">AutoVroom Racing Cars Community</h1>
-            <p style="margin: 8px 0 0; color: #e9d5ff; font-size: 15px; font-weight: 500;">Vehicle Dynamics Applicant Quiz — تقرير إجابة متقدم</p>
-            <div style="margin-top: 8px; font-size: 12px; color: #d8b4fe;">Eng. Anas Essam | Operation Manager</div>
+          <!-- Header Banner -->
+          <div style="background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); padding: 26px; text-align: center;">
+            <h1 style="margin: 0; color: #ffffff; font-size: 24px; letter-spacing: 0.5px;">AUTO VROOM</h1>
+            <p style="margin: 4px 0 0; color: #f3e8ff; font-size: 13px; font-weight: bold;">INNOVATION UNIVERSITY · COMPUTER SCIENCE TEAM</p>
+            <p style="margin: 10px 0 0; color: #ffffff; font-size: 15px; background: rgba(0,0,0,0.25); display: inline-block; padding: 4px 14px; border-radius: 20px;">
+              🎯 تقرير نتيجة اختبار تقييم الويب (Beginner Level)
+            </p>
           </div>
 
-          <div style="padding: 24px;">
-            <!-- كارت النتيجة -->
-            <div style="background: linear-gradient(180deg, #1f2937, #111827); border: 1px solid #374151; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 24px;">
-              <div style="font-size: 13px; color: #9ca3af; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">النتيجة الكلية للتقييم</div>
-              <div style="font-size: 42px; font-weight: 900; color: ${percentage >= 50 ? '#34d399' : '#f87171'};">
-                ${score} <span style="font-size: 24px; color: #9ca3af;">/ ${total}</span>
+          <!-- Body -->
+          <div style="padding: 26px;">
+            
+            <!-- Student Information Card -->
+            <div style="background-color: #1a0f3d; border-radius: 10px; padding: 18px; margin-bottom: 22px; border-right: 4px solid #a855f7;">
+              <h3 style="margin: 0 0 12px; color: #c084fc; font-size: 16px;">👤 بيانات المتقدم:</h3>
+              <p style="margin: 5px 0; color: #e2e8f0;"><strong>الاسم:</strong> ${student.name}</p>
+              <p style="margin: 5px 0; color: #e2e8f0;"><strong>البريد:</strong> ${student.email}</p>
+              ${student.phone ? `<p style="margin: 5px 0; color: #e2e8f0;"><strong>الهاتف / واتساب:</strong> ${student.phone}</p>` : ''}
+              ${student.academicInfo ? `<p style="margin: 5px 0; color: #e2e8f0;"><strong>الكلية / الفرقة:</strong> ${student.academicInfo}</p>` : ''}
+              <p style="margin: 5px 0; color: #a78bfa; font-size: 13px;"><strong>تاريخ وتوقيت التسليم:</strong> ${dateFormatted}</p>
+              <p style="margin: 5px 0; color: #a78bfa; font-size: 13px;"><strong>الوقت المستغرق:</strong> ${timeSpent}</p>
+            </div>
+
+            <!-- Score Banner -->
+            <div style="text-align: center; background: #0a0518; border-radius: 12px; padding: 22px; margin-bottom: 26px; border: 1px solid #3b186b;">
+              <div style="font-size: 14px; color: #a78bfa; margin-bottom: 4px; font-weight: bold;">الدرجة النهائية</div>
+              <div style="font-size: 42px; font-weight: 900; color: ${percentage >= 60 ? '#10B981' : '#F43F5E'};">
+                ${score} / ${total}
               </div>
-              <div style="display: inline-block; background-color: ${percentage >= 50 ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)'}; border: 1px solid ${percentage >= 50 ? '#10b981' : '#ef4444'}; color: ${percentage >= 50 ? '#34d399' : '#f87171'}; padding: 4px 14px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-top: 8px;">
+              <div style="font-size: 17px; font-weight: bold; color: #f5f3ff; margin-top: 4px;">
                 النسبة المئوية: ${percentage}%
               </div>
             </div>
 
-            <!-- بيانات الطالب الرسمية كما في ورقة الاختبار -->
-            <div style="background-color: #1f2937; border-radius: 10px; padding: 18px; margin-bottom: 24px; border-right: 4px solid #8b5cf6;">
-              <h3 style="margin: 0 0 12px; color: #c084fc; font-size: 15px; display: flex; align-items: center; gap: 6px;">
-                📋 بيانات المتقدم (Applicant Information):
-              </h3>
-              <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #e5e7eb;">
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af; width: 140px;">👤 الاسم (Name):</td>
-                  <td style="padding: 5px 0; font-weight: bold; color: #ffffff;">${student.name}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af;">🪪 رقم القيد (Student ID):</td>
-                  <td style="padding: 5px 0; font-weight: bold; color: #a78bfa;">${student.studentId || 'غير محدد'}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af;">🏛️ الكلية / التخصص (Faculty):</td>
-                  <td style="padding: 5px 0; color: #f3f4f6;">${student.faculty || 'غير محدد'}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af;">🎓 الفرقة (Level):</td>
-                  <td style="padding: 5px 0; color: #f3f4f6;">${student.level || 'غير محدد'}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af;">✉️ البريد الإلكتروني:</td>
-                  <td style="padding: 5px 0; color: #38bdf8;">${student.email || 'غير مسجل'}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af;">📱 الهاتف / واتساب:</td>
-                  <td style="padding: 5px 0; color: #f3f4f6;">${student.phone || 'غير مسجل'}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af;">⏱️ الوقت المستغرق:</td>
-                  <td style="padding: 5px 0; color: #f3f4f6;">${timeSpent}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 5px 0; color: #9ca3af;">📅 تاريخ وتوقيت التسليم:</td>
-                  <td style="padding: 5px 0; color: #9ca3af;">${dateFormatted}</td>
-                </tr>
-              </table>
-            </div>
-
-            <!-- جدول تفاصيل الأسئلة والحل النموذجي -->
-            <h3 style="color: #f3f4f6; margin: 0 0 12px; font-size: 15px; border-bottom: 2px solid #374151; padding-bottom: 8px;">
-              🔍 تفاصيل الإجابات الـ 12 مع التحليل الهندسي:
+            <!-- Questions Breakdown -->
+            <h3 style="color: #ffffff; border-bottom: 2px solid #3b186b; padding-bottom: 10px; margin-bottom: 18px; font-size: 17px;">
+              تفاصيل الإجابات (20 سؤال):
             </h3>
 
-            <table style="width: 100%; border-collapse: collapse; background-color: #171f2e; border-radius: 8px; overflow: hidden; border: 1px solid #334155;">
-              <thead>
-                <tr style="background-color: #1e293b; color: #94a3b8; font-size: 12px;">
-                  <th style="padding: 8px; width: 40px; text-align: center;">#</th>
-                  <th style="padding: 8px; text-align: right;">السؤال وإجابة الطالب</th>
-                  <th style="padding: 8px; width: 85px; text-align: center;">الحالة</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${answersHtml}
-              </tbody>
-            </table>
-
-            <!-- الفوتر -->
-            <div style="text-align: center; margin-top: 30px; padding-top: 18px; border-top: 1px solid #374151; color: #6b7280; font-size: 12px;">
-              نظام اختبارات ومسابقات AutoVroom Racing Cars Community &bull; Innovation University
+            <div style="background-color: #0d0722; border-radius: 10px; padding: 16px; border: 1px solid #2d1b4e;">
+              ${answersHtml}
             </div>
+            
+            <p style="text-align: center; font-size: 12px; color: #715b94; margin-top: 26px;">
+              تم إرسال هذا التقرير تلقائيًا عبر نظام اختبارات AutoVroom CS Team
+            </p>
           </div>
         </div>
       </div>
     `;
 
-    // 1. محاولة الإرسال عبر Resend إن وُجد مفتاح البيئة
-    if (process.env.RESEND_API_KEY) {
+    // 1. Resend integration (if RESEND_API_KEY environment variable is configured in Vercel)
+    if (process.env.RESEND_API_KEY && process.env.TO_EMAIL) {
       const resendRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -162,67 +113,54 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: 'AutoVroom Quiz <onboarding@resend.dev>',
-          to: toEmail,
+          from: 'AutoVroom CS Quiz <onboarding@resend.dev>',
+          to: process.env.TO_EMAIL,
           reply_to: student.email,
-          subject: `🏎️ [Vehicle Dynamics Quiz] ${student.name} (${student.studentId || 'ID'}) — النتيجة: ${score}/${total}`,
+          subject: `🏎️ [نتيجة اختبار AutoVroom] ${student.name} (${score}/${total} - ${percentage}%)`,
           html: fullHtmlEmail
         })
       });
 
       if (resendRes.ok) {
-        return res.status(200).json({ success: true, message: 'تم إرسال النتيجة بنجاح عبر Resend' });
+        return res.status(200).json({ success: true, message: 'تم إرسال النتيجة للإيميل بنجاح عبر Resend' });
       }
     }
 
-    // 2. استخدام Web3Forms المجاني المباشر
-    const activeWeb3Key = process.env.WEB3FORMS_ACCESS_KEY || web3Key || '0c494a24-4a78-40b5-b227-5281a6331bb7';
-    if (activeWeb3Key) {
+    // 2. Web3Forms integration
+    const activeKey = process.env.WEB3FORMS_ACCESS_KEY || web3Key;
+    if (activeKey && activeKey !== 'YOUR_WEB3FORMS_ACCESS_KEY') {
       const w3Response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: activeWeb3Key,
-          subject: `🏎️ [Vehicle Dynamics] نتيجة اختبار: ${student.name} (${score}/${total} - ${percentage}%)`,
-          from_name: `AutoVroom Racing Community`,
-          to_email: toEmail,
+          access_key: activeKey,
+          subject: `🏎️ [نتيجة اختبار AutoVroom CS] ${student.name} (${score}/${total})`,
+          from_name: 'AutoVroom CS Team',
           name: student.name,
           email: student.email,
           message: `
-📋 بيانات المتقدم:
-- الاسم: ${student.name}
-- Student ID: ${student.studentId || 'غير محدد'}
-- Faculty / Major: ${student.faculty || 'غير محدد'}
-- Level: ${student.level || 'غير محدد'}
-- التاريخ: ${dateFormatted}
-- الإيميل: ${student.email}
-- الهاتف: ${student.phone || 'غير مسجل'}
+نتيجة اختبار تقييم الويب (AutoVroom CS Team - Innovation University):
+اسم المتقدم: ${student.name}
+البريد الإلكتروني: ${student.email}
+الهاتف: ${student.phone || 'غير مسجل'}
+الكلية: ${student.academicInfo || 'غير مسجل'}
+الدرجة: ${score} من ${total} (${percentage}%)
+الوقت المستغرق: ${timeSpent}
+تاريخ التقديم: ${dateFormatted}
 
-🎯 النتيجة النهائية:
-- الدرجة: ${score} من ${total}
-- النسبة المئوية: ${percentage}%
-- الوقت المستغرق: ${timeSpent}
-
-📝 تفاصيل إجابات الأسئلة الـ 12:
-${answers.map((a, i) => `${a.number || (i+1)}. ${a.question}
-- إجابة الطالب: (${a.userChoiceLetter}) ${a.userAnswerText} [${a.userChoice === a.correctChoice ? '✔️ صحيحة' : '❌ خاطئة'}]
-${a.userChoice !== a.correctChoice ? `- الإجابة الصحيحة: (${a.correctChoiceLetter}) ${a.correctAnswerText}\n` : ''}- السبب الهندسي: ${a.explanation}`).join('\n\n')}
+تفاصيل الإجابات:
+${answers.map((a, i) => `${i+1}. ${a.question}\nإجابة المتقدم: ${a.userAnswerText} [${a.isCorrect ? 'صحيحة ✔️' : 'خاطئة ❌'}]\nالإجابة النموذجية: ${a.correctAnswerText}`).join('\n\n')}
           `
         })
       });
-
-      const w3Data = await w3Response.json();
-      return res.status(200).json({ 
-        success: true, 
-        message: 'تم الإرسال بنجاح عبر Web3Forms', 
-        details: w3Data 
-      });
+      const data = await w3Response.json();
+      return res.status(200).json({ success: true, data, message: 'تم الإرسال بنجاح عبر Web3Forms' });
     }
 
     return res.status(200).json({
       success: true,
       needsClientFallback: true,
-      message: 'Serverless response ready.'
+      message: 'Serverless ready for client delivery.'
     });
 
   } catch (error) {

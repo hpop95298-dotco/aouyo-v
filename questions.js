@@ -1,209 +1,274 @@
-// بنك أسئلة اختبار ديناميكا المركبات
-// AutoVroom Racing Cars Community — Innovation University
-// Vehicle Dynamics Applicant Quiz — Eng. Anas Essam | Operation Manager
+// بنك الأسئلة الرسمي - AutoVroom Computer Science Team
+// Innovation University — Beginner Level (20 Questions)
 
 export const quizInfo = {
-  community: "AutoVroom Racing Cars Community",
-  university: "Innovation University",
-  manager: "Eng. Anas Essam | Operation Manager",
-  subteam: "Vehicle Dynamics Subteam",
-  title: "Vehicle Dynamics Applicant Quiz",
-  instructions: "Search is allowed. Work individually and use your own words. You may answer in Arabic or English.",
-  totalQuestions: 12,
-  totalMarks: 12
+  teamName: "AutoVroom — Innovation University",
+  subTeam: "Computer Science Team",
+  quizTitle: "اختبار تقييم المستوى (Beginner Level) — 20 سؤال",
+  totalQuestions: 20,
+  totalMarks: 20,
+  timeMinutes: 20
 };
 
 export const quizQuestions = [
   {
     id: 1,
-    number: "01",
-    category: "Subteam Scope",
-    categoryAr: "نطاق عمل الفريق",
-    question: "Which activity belongs to the Vehicle Dynamics subteam?",
-    questionAr: "أي من الأنشطة التالية تتبع تخصص Vehicle Dynamics؟",
+    category: "مفاهيم الويب",
+    question: "يعني إيه Website؟",
     options: [
-      { letter: "A", text: "Choosing the car paint color", textAr: "اختيار لون طلاء السيارة" },
-      { letter: "B", text: "Studying handling, suspension, steering and braking", textAr: "دراسة التحكم، التعليق، التوجيه والفرامل" },
-      { letter: "C", text: "Managing ticket sales", textAr: "إدارة مبيعات التذاكر" }
+      "برنامج بيشتغل على الكمبيوتر بس",
+      "مجموعة صفحات ومحتوى بنقدر نوصل لهم عن طريق المتصفح",
+      "لغة برمجة",
+      "قاعدة بيانات فقط"
     ],
-    correctAnswer: 1, // B
-    explanation: "The subteam studies car motion and the systems that influence it (handling, suspension, steering, and braking).",
-    explanationAr: "فريق ديناميكا المركبات يدرس حركة السيارة وجميع الأنظمة المؤثرة عليها مثل التوجيه والتعليق والمكابح وسلوك المناورة."
+    correctAnswer: 1,
+    explanation: "الموقع الإلكتروني (Website) هو مجموعة من صفحات الويب والمحتوى المرتبط بها، المخزنة على سيرفر ويمكن تصفحها عبر متصفح الإنترنت."
   },
   {
     id: 2,
-    number: "02",
-    category: "Suspension",
-    categoryAr: "نظام التعليق",
-    question: "Which suspension component stores elastic energy when compressed?",
-    questionAr: "أي مكون في نظام التعليق يقوم بتخزين الطاقة المرنة عند انضغاطه؟",
+    category: "مفاهيم الويب",
+    question: "لما تفتح Website من المتصفح، مين غالبًا بيطلب الصفحة من السيرفر؟",
     options: [
-      { letter: "A", text: "Damper", textAr: "المساعد (Damper)" },
-      { letter: "B", text: "Steering rack", textAr: "علبة التوجيه (Steering rack)" },
-      { letter: "C", text: "Spring", textAr: "الياي / السوستة (Spring)" }
+      "HTML",
+      "CSS",
+      "Browser",
+      "GitHub"
     ],
-    correctAnswer: 2, // C
-    explanation: "A spring stores elastic energy as it deflects under load.",
-    explanationAr: "الياي (Spring) يخزن الطاقة المرنة عند انضغاطه أو استطالته بفعل الحمل."
+    correctAnswer: 2,
+    explanation: "المتصفح (Browser مثل Chrome أو Firefox) هو العميل (Client) اللي بيرسل طلب HTTP/HTTPS للسيرفر عشان يجيب ملفات الصفحة ويعرضها."
   },
   {
     id: 3,
-    number: "03",
-    category: "Suspension",
-    categoryAr: "نظام التعليق",
-    question: "What is the main role of a suspension damper?",
-    questionAr: "ما هو الدور الأساسي للمساعد (Damper) في نظام التعليق؟",
+    category: "HTML",
+    question: "إيه اللغة الأساسية المسؤولة عن بناء هيكل صفحة الويب؟",
     options: [
-      { letter: "A", text: "Reduce oscillations by dissipating energy", textAr: "تقليل وتخميد الاهتزازات عن طريق تشتيت الطاقة" },
-      { letter: "B", text: "Turn the front wheels", textAr: "توجيه العجلات الأمامية" },
-      { letter: "C", text: "Store energy like a spring", textAr: "تخزين الطاقة مثل الياي" }
+      "CSS",
+      "HTML",
+      "JavaScript",
+      "SQL"
     ],
-    correctAnswer: 0, // A
-    explanation: "A damper dissipates kinetic energy into thermal energy to control and dampen spring oscillations.",
-    explanationAr: "يقوم المساعد (Damper) بامتصاص وتشتيت الطاقة الحركية لتحويلها لحرارة وتخميد تذبذب السوستة."
+    correctAnswer: 1,
+    explanation: "لغة HTML (HyperText Markup Language) هي المسؤولة عن وضع الهيكل واللبنات الأساسية للموقع (عناوين، نصوص، صور، روابط)."
   },
   {
     id: 4,
-    number: "04",
-    category: "Weight Transfer",
-    categoryAr: "انتقال الأحمال والأوزان",
-    question: "During straight-line braking on level ground, which axle normally gains vertical load?",
-    questionAr: "أثناء الفرملة في خط مستقيم على أرض مستوية، أي محور يكتسب حملاً رأسياً إضافياً؟",
+    category: "CSS",
+    question: "إيه الاستخدام الأساسي لـ CSS؟",
     options: [
-      { letter: "A", text: "Front axle", textAr: "المحور الأمامي (Front axle)" },
-      { letter: "B", text: "Rear axle", textAr: "المحور الخلفي (Rear axle)" },
-      { letter: "C", text: "Neither axle", textAr: "لا أحد منهما" }
+      "تنسيق وتصميم الصفحة",
+      "تخزين بيانات المستخدمين",
+      "إدارة ملفات المشروع",
+      "إرسال الإيميلات"
     ],
-    correctAnswer: 0, // A
-    explanation: "Braking generates deceleration that transfers vertical load toward the front axle due to the center of gravity height.",
-    explanationAr: "الفرملة تؤدي إلى نقل الوزن الديناميكي للأمام، مما يزيد الحمل الرأسي على المحور الأمامي."
+    correctAnswer: 0,
+    explanation: "لغة CSS (Cascading Style Sheets) مسؤولة عن الشكل الجمالي: الألوان، الخطوط، المسافات، وتنسيق العناصر."
   },
   {
     id: 5,
-    number: "05",
-    category: "Center of Gravity",
-    categoryAr: "مركز الثقل والاتزان",
-    question: "With the same acceleration, wheelbase and track width, a lower center of gravity generally causes:",
-    questionAr: "مع ثبات التسارع وقاعدة العجلات وعرض المسار، انخفاض مركز ثقل السيارة يؤدي عموماً إلى:",
+    category: "JavaScript",
+    question: "JavaScript بتُستخدم أساسًا في إيه داخل الموقع؟",
     options: [
-      { letter: "A", text: "More load transfer", textAr: "انتقال حمل أكبر (More load transfer)" },
-      { letter: "B", text: "Less load transfer", textAr: "انتقال حمل أقل (Less load transfer)" },
-      { letter: "C", text: "Exactly the same load transfer", textAr: "نفس معدل انتقال الحمل تماماً" }
+      "كتابة النصوص فقط",
+      "تغيير لون الشاشة فقط",
+      "إضافة التفاعل والسلوك للصفحة",
+      "إنشاء الصور فقط"
     ],
-    correctAnswer: 1, // B
-    explanation: "A lower center of gravity (CG) reduces the moment arm, resulting in less dynamic load transfer.",
-    explanationAr: "انخفاض مركز الثقل (CG) يقلل ذراع العزم، مما يقلل من انتقال الأحمال الديناميكية في المنعطفات والفرملة."
+    correctAnswer: 2,
+    explanation: "لغة JavaScript تضيف الحيوية والتفاعل: مثل الأزرار التفاعلية، النوافذ المنبثقة، التحقق من النماذج، والتعامل مع البيانات دون إعادة تحميل الصفحة."
   },
   {
     id: 6,
-    number: "06",
-    category: "Braking Physics",
-    categoryAr: "فيزياء منظومة الفرامل",
-    question: "During friction braking, most of the car's lost kinetic energy becomes:",
-    questionAr: "أثناء الفرملة بالاحتكاك، معظم الطاقة الحركية المفقودة من السيارة تتحول إلى:",
+    category: "مفاهيم الويب",
+    question: "إيه الفرق الأقرب بين HTML وCSS وJavaScript؟",
     options: [
-      { letter: "A", text: "Electricity", textAr: "كهرباء" },
-      { letter: "B", text: "Sound", textAr: "صوت" },
-      { letter: "C", text: "Heat", textAr: "حرارة (Heat)" }
+      "كلهم بيعملوا نفس الوظيفة",
+      "HTML للهيكل، CSS للتصميم، JavaScript للتفاعل",
+      "HTML للتصميم، CSS للبيانات، JavaScript للصور",
+      "CSS هي اللي بتبني السيرفر فقط"
     ],
-    correctAnswer: 2, // C
-    explanation: "Friction between brake pads and discs/drums converts kinetic energy directly into thermal energy (heat).",
-    explanationAr: "الاحتكاك بين تيل الفرامل والقرص يحول طاقة حركة السيارة إلى طاقة حرارية هائلة."
+    correctAnswer: 1,
+    explanation: "التشبيه الكلاسيكي: HTML هو الهيكل العظمي، CSS هو المظهر والملابس، وJavaScript هي العضلات والحركة."
   },
   {
     id: 7,
-    number: "07",
-    category: "Braking Hardware",
-    categoryAr: "مكونات منظومة الفرامل",
-    question: "In a disc brake, which component presses the pads against the disc?",
-    questionAr: "في الفرامل القرصية، أي جزء يضغط بطانات الاحتكاك (التيل) على قرص الفرامل؟",
+    category: "HTML",
+    question: "أنهي Tag بنستخدمه لعنوان رئيسي في HTML؟",
     options: [
-      { letter: "A", text: "Caliper", textAr: "الكاليبر / الفرجار (Caliper)" },
-      { letter: "B", text: "Suspension spring", textAr: "سوستة التعليق" },
-      { letter: "C", text: "Tie rod", textAr: "ذراع التوجيه (Tie rod)" }
+      "<p>",
+      "<img>",
+      "<h1>",
+      "<a>"
     ],
-    correctAnswer: 0, // A
-    explanation: "The caliper contains pistons that push the brake pads firmly against both sides of the rotating brake disc.",
-    explanationAr: "الكاليبر (Caliper) يحتوي على مكابس هيدروليكية تضغط التيل على ديسك الفرامل لإيقاف العجلة."
+    correctAnswer: 2,
+    explanation: "وسم <h1> هو العنوان الرئيسي الأعلى رتبة في الصفحة، ويتدرج حتى <h6>."
   },
   {
     id: 8,
-    number: "08",
-    category: "Wheel Alignment",
-    categoryAr: "ضبط زوايا العجلات (Camber)",
-    question: "Camber is the wheel's tilt relative to vertical when viewed from:",
-    questionAr: "زاوية الكامبر (Camber) هي ميل العجلة بالنسبة للمستوى الرأسي عند النظر إليها من:",
+    category: "HTML",
+    question: "أنهي Tag مناسب لكتابة فقرة نصية؟",
     options: [
-      { letter: "A", text: "Above the car", textAr: "أعلى السيارة" },
-      { letter: "B", text: "The front of the car", textAr: "مقدمة السيارة (The front of the car)" },
-      { letter: "C", text: "The side of the car", textAr: "جانب السيارة" }
+      "<p>",
+      "<button>",
+      "<div>",
+      "<img>"
     ],
-    correctAnswer: 1, // B
-    explanation: "Camber is the angle of inclination of the wheel relative to vertical when viewed from the front or rear of the vehicle.",
-    explanationAr: "الكامبر هو زاوية ميل الإطار إلى الداخل أو الخارج نسبة إلى الخط الرأسي عند النظر من الأمام أو الخلف."
+    correctAnswer: 0,
+    explanation: "وسم <p> يرمز إلى Paragraph وهو المخصص لكتابة الفقرات النصية في HTML."
   },
   {
     id: 9,
-    number: "09",
-    category: "Wheel Alignment",
-    categoryAr: "ضبط زوايا العجلات (Toe)",
-    question: "Toe describes wheel direction most clearly when viewed from:",
-    questionAr: "زاوية التو (Toe) تصف اتجاه العجلات بوضوح تام عند النظر إليها من:",
+    category: "HTML",
+    question: "إزاي تعمل رابط لصفحة تانية في HTML؟",
     options: [
-      { letter: "A", text: "The front", textAr: "الأمام" },
-      { letter: "B", text: "The side", textAr: "الجانب" },
-      { letter: "C", text: "Above", textAr: "الأعلى (Above)" }
+      "<linkto>",
+      "<a href=\"...\">",
+      "<p url=\"...\">",
+      "<button href=\"...\">"
     ],
-    correctAnswer: 2, // C
-    explanation: "Toe is the symmetric angle that each wheel makes with the longitudinal axis of the vehicle when viewed from directly above.",
-    explanationAr: "زاوية الـ Toe (Toe-in / Toe-out) هي تقارب أو تباعد العجلات عن خط منتصف السيارة عند النظر من الأعلى (Bird's eye view)."
+    correctAnswer: 1,
+    explanation: "وسم <a> (Anchor) مع الخاصية href هو الطريقة القياسية لإنشاء الروابط التشعبية."
   },
   {
     id: 10,
-    number: "10",
-    category: "Vehicle Handling",
-    categoryAr: "سلوك المناورة (Understeer)",
-    question: "Near the grip limit, the front tires lose grip first and the car runs wider in a turn. This is:",
-    questionAr: "عند الاقتراب من حد التماسك، إذا فقدت الإطارات الأمامية تماسكها أولاً واتسعت دائرة المنعطف، تسمى هذه الحالة:",
+    category: "HTML",
+    question: "أنهي Tag بنستخدمه لعرض صورة؟",
     options: [
-      { letter: "A", text: "Oversteer", textAr: "أوفرستير (Oversteer)" },
-      { letter: "B", text: "Understeer", textAr: "أندرستير (Understeer)" },
-      { letter: "C", text: "Vertical bounce", textAr: "ارتداد رأسي" }
+      "<picture-text>",
+      "<a>",
+      "<img>",
+      "<h1>"
     ],
-    correctAnswer: 1, // B
-    explanation: "Understeer occurs when the front tires slip before the rear, causing the car to steer less and push wide of the intended line.",
-    explanationAr: "الأندرستير (Understeer) يحدث عندما تفقد الإطارات الأمامية التماسك أولاً مما يجعل السيارة تزحف للخارج في المنعطف."
+    correctAnswer: 2,
+    explanation: "وسم <img> مع الخاصية src هو الوسم المستخدم لتضمين الصور داخل صفحة الويب."
   },
   {
     id: 11,
-    number: "11",
-    category: "Vehicle Handling",
-    categoryAr: "سلوك المناورة (Oversteer)",
-    question: "Near the grip limit, the rear tires lose grip first and the car rotates more than intended. This is:",
-    questionAr: "عند الاقتراب من حد التماسك، إذا فقدت الإطارات الخلفية تماسكها أولاً ودارت مؤخرة السيارة أكثر من المطلوب، تسمى هذه الحالة:",
+    category: "HTML",
+    question: "أنهي Tag مناسب لزرار قابل للضغط؟",
     options: [
-      { letter: "A", text: "Understeer", textAr: "أندرستير (Understeer)" },
-      { letter: "B", text: "Vertical bounce", textAr: "ارتداد رأسي" },
-      { letter: "C", text: "Oversteer", textAr: "أوفرستير (Oversteer)" }
+      "<button>",
+      "<h1>",
+      "<p>",
+      "<title>"
     ],
-    correctAnswer: 2, // C
-    explanation: "Oversteer occurs when the rear tires lose grip first, causing the rear end to slide out and rotate the vehicle excessively.",
-    explanationAr: "الأوفرستير (Oversteer) يحدث حين تفقد العجلات الخلفية تماسكها أولاً، فتنزلق خلفية السيارة وتدور باتجاه المنعطف."
+    correctAnswer: 0,
+    explanation: "وسم <button> هو المخصص للأزرار التفاعلية القابلة للنقر لتنفيذ أوامر أو إرسال استمارات."
   },
   {
     id: 12,
-    number: "12",
-    category: "Steering Geometry",
-    categoryAr: "هندسة التوجيه (Ackermann)",
-    question: "In ideal Ackermann steering during a slow turn, which front wheel has the larger steering angle?",
-    questionAr: "في هندسة توجيه أكرمان (Ackermann) المثالية في المنعطفات البطيئة، أي عجلة أمامية تكون زاوية انحرافها أكبر؟",
+    category: "HTML",
+    question: "إيه الاستخدام الشائع لـ div؟",
     options: [
-      { letter: "A", text: "The inner wheel", textAr: "العجلة الداخلية للمنعطف (The inner wheel)" },
-      { letter: "B", text: "The outer wheel", textAr: "العجلة الخارجية للمنعطف (The outer wheel)" },
-      { letter: "C", text: "Both angles must be equal", textAr: "الزاويتان متساويتان تماماً" }
+      "تشغيل قاعدة البيانات",
+      "تجميع عناصر الصفحة داخل حاوية",
+      "إضافة صورة تلقائيًا",
+      "كتابة كود CSS فقط"
     ],
-    correctAnswer: 0, // A
-    explanation: "The inner wheel travels along a tighter turning radius circle, and thus requires a steeper/larger steering angle than the outer wheel.",
-    explanationAr: "العجلة الداخلية ترسم مسار دائري أصغر قطراً وأضيق، لذا تتطلب زاوية توجيه أكبر من العجلة الخارجية."
+    correctAnswer: 1,
+    explanation: "عنصر <div> (Division) هو حاوية عامة تُستخدم لتجميع عناصر وتطبيق تنسيقات أو تنظيم التخطيط بواسطة CSS."
+  },
+  {
+    id: 13,
+    category: "CSS",
+    question: "في CSS، إزاي تغيّر لون النص؟",
+    options: [
+      "font-size",
+      "background-image",
+      "color",
+      "margin"
+    ],
+    correctAnswer: 2,
+    explanation: "الخاصية color في CSS هي المسؤولة عن تحديد لون النص (Foreground Color)."
+  },
+  {
+    id: 14,
+    category: "CSS",
+    question: "إيه الفرق بين Margin وPadding؟",
+    options: [
+      "مفيش فرق",
+      "Margin مساحة خارج العنصر، وPadding مساحة داخلية بين المحتوى والحدود",
+      "Padding خارج العنصر وMargin داخل المحتوى",
+      "الاتنين لتغيير لون النص"
+    ],
+    correctAnswer: 1,
+    explanation: "في الـ Box Model: الـ Margin مساحة خارجية تبعد العنصر عن جيرانه، والـ Padding مساحة داخلية بين المحتوى وإطار العنصر (Border)."
+  },
+  {
+    id: 15,
+    category: "CSS",
+    question: "لو عايز تكبّر حجم الخط في CSS، تستخدم إيه؟",
+    options: [
+      "font-size",
+      "font-color",
+      "text-space",
+      "size-text"
+    ],
+    correctAnswer: 0,
+    explanation: "الخاصية font-size هي المسؤولة عن التحكم في حجم ونسبة خط النص في CSS."
+  },
+  {
+    id: 16,
+    category: "تصميم الويب",
+    question: "يعني إيه Responsive Website؟",
+    options: [
+      "موقع بيشتغل على الكمبيوتر فقط",
+      "موقع بيتكيف مع أحجام الشاشات المختلفة",
+      "موقع من غير صور",
+      "موقع محتاج إنترنت سريع فقط"
+    ],
+    correctAnswer: 1,
+    explanation: "الموقع المتجاوب (Responsive) هو الموقع الذي يُعاد تشكيل وتكييف عناصره تلقائياً ليظهر بشكل مثالي على الهواتف والأجهزة اللوحية وشاشات الكمبيوتر."
+  },
+  {
+    id: 17,
+    category: "مسارات الويب",
+    question: "إيه المقصود بالـ Front-End؟",
+    options: [
+      "الجزء اللي المستخدم بيشوفه وبيتفاعل معاه",
+      "السيرفر فقط",
+      "قاعدة البيانات فقط",
+      "نظام تشغيل الكمبيوتر"
+    ],
+    correctAnswer: 0,
+    explanation: "الـ Front-End (واجهة المستخدم) يمثل كل ما يظهر أمام شاشة المستخدم من تصميم وتفاعل باستخدام HTML و CSS و JS."
+  },
+  {
+    id: 18,
+    category: "مسارات الويب",
+    question: "إيه المقصود بالـ Back-End؟",
+    options: [
+      "الألوان والخطوط فقط",
+      "الجزء المسؤول عن منطق السيرفر والتعامل مع البيانات",
+      "شكل الزرار",
+      "حجم الصور"
+    ],
+    correctAnswer: 1,
+    explanation: "الـ Back-End هو الجزء الخلفي الكامن خلف الكواليس: السيرفر، قواعد البيانات، التحقق من الأمان، وإدارة المنطق والعمليات."
+  },
+  {
+    id: 19,
+    category: "أدوات التطوير (Git)",
+    question: "إيه الفرق بين Git وGitHub؟",
+    options: [
+      "هما نفس الحاجة بالضبط",
+      "Git لغة تصميم وGitHub متصفح",
+      "Git لإدارة إصدارات الكود، وGitHub منصة لاستضافة المستودعات والتعاون",
+      "Git لتصميم الصور وGitHub لكتابة HTML"
+    ],
+    correctAnswer: 2,
+    explanation: "Git هو برنامج محلي لتتبع التغييرات وإدارة النسخ (Version Control)، بينما GitHub هي خدمة سحابية لحفظ ومشاركة وإدارة تلك المشاريع سحابياً بين المبرمجين."
+  },
+  {
+    id: 20,
+    category: "أدوات التطوير (Git)",
+    question: "لو فريق بيشتغل على نفس Website، إزاي Git بيساعدهم؟",
+    options: [
+      "بيمنع أي حد يعدل الكود",
+      "بيحذف النسخ القديمة تلقائيًا دائمًا",
+      "بيساعد على تتبع التغييرات ودمج شغل الفريق",
+      "بيحوّل HTML إلى CSS"
+    ],
+    correctAnswer: 2,
+    explanation: "Git يتيح للفريق العمل بالتوازي من خلال الـ Branches، تتبع كل تعديل بدقة، وحل أي تعارض ودمج الأكواد بسهولة وأمان."
   }
 ];
