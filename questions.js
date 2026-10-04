@@ -6,7 +6,7 @@ export const quizInfo = {
   subTeam: "Computer Science Team",
   quizTitle: "اختبار تقييم المستوى (Beginner Level) — 20 سؤال",
   totalQuestions: 20,
-  totalMarks: 20,
+  totalMarks: 30,
   timeMinutes: 20
 };
 
