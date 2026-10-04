@@ -11,10 +11,10 @@ export const config = {
   emailService: {
     // الطريقة الأولى: Web3Forms (أسهل طريقة بدون كتابة سطر كود خلفي ومجانية تماماً)
     // احصل على مفتاحك المجاني في ثوانٍ من https://web3forms.com وضع المفتاح هنا
-    web3formsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY",
+    web3formsAccessKey: "0c494a24-4a78-40b5-b227-5281a6331bb7",
 
     // الإيميل اللي حابب تستقبل عليه الإجابات
-    recipientEmail: "autovroom.cs@example.com", 
+    recipientEmail: "popheme19@gmail.com", 
 
     // بدائل أخرى مثل Formspree أو Webhook:
     formspreeEndpoint: "", 
